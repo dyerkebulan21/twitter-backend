@@ -8,5 +8,5 @@ app.get('/', (_, res: express.Response) => {
 
 
 app.listen(8888, ():void => {
-    console.log("Server Runned")
+    console.log("Server Running")
 })
