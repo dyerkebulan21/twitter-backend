@@ -1,4 +1,5 @@
 import express from 'express'
+import { validationResult } from 'express-validator'
 import { UserModel } from '../models/userModel'
 
 class UserController {
@@ -19,15 +20,30 @@ class UserController {
 
     }
 
-    // async create(req: express.Request, res: express.Response): Promise<void> {
-    //     try {
+    async create(req: express.Request, res: express.Response): Promise<void> {
+        try {
+          const errors = validationResult(req)
+          if(!errors.isEmpty()) {
+            res.status(400).json({errors: status, message: errors.array()})
+            return 
+          }
+          const data = {
+            username: req.body.username,
+            fullname: req.body.fullname,
+            password: req.body.password,
+            email: req.body.email
+          }
+          const user = await UserModel.create(data)
+          res.json({
+            status: 'success',
+            data: user
+          })
+        }catch(err) {
 
-    //     }catch(err) {
-
-    //     }   
-    // }
+        }   
+    }
 
     
 }
 
-const UserCtrl = new UserController()
+export const UserCtrl = new UserController()
