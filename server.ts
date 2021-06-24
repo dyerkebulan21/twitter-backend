@@ -1,9 +1,11 @@
 
+import './core/db'
+import dotenv from 'dotenv'
 import express from 'express'
 import {UserCtrl} from './controllers/UserController'
 import { registerValidator } from './validators/register'
-import dotenv from 'dotenv'
-import './core/db'
+
+
 const app = express()
 dotenv.config()
 app.use(express.json())

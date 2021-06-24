@@ -6,7 +6,6 @@ import { generateMD5 } from '../utils/generateHash'
 class UserController {
    async index(_: any, res: express.Response): Promise<void> {
         const users = await UserModel.find({}).exec()
-
       try{
         res.json({
             status: 'success',
@@ -41,7 +40,7 @@ class UserController {
             data: user
           })
         }catch(err) {
-
+          console.log(err)
         }   
     }
 

@@ -1,8 +1,8 @@
 Arguments: 
-  /Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin/node /Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin/yarn add @types/mongoosae
+  /Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin/node /Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin/yarn add nodeemailer
 
 PATH: 
-  /Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/dyerkebulan21/.yarn/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/dyerkebulan21/.yarn/bin
+  /opt/homebrew/bin:/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/opt/homebrew/bin:/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/dyerkebulan21/.yarn/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/dyerkebulan21/.yarn/bin
 
 Yarn version: 
   1.22.10
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fmongoosae: Not found
+  Error: https://registry.yarnpkg.com/nodeemailer: Not found
       at Request.params.callback [as _callback] (/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/lib/node_modules/yarn/lib/cli.js:66988:18)
       at Request.self.callback (/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/lib/node_modules/yarn/lib/cli.js:140662:22)
       at Request.emit (events.js:315:20)
@@ -36,6 +36,9 @@ npm manifest:
     "license": "MIT",
     "dependencies": {
       "@types/express": "^4.17.12",
+      "@types/mongoose": "^5.11.97",
+      "body-parser": "^1.19.0",
+      "dotenv": "^10.0.0",
       "express": "^4.17.1",
       "express-validator": "^6.12.0",
       "mongoose": "^5.12.14",
@@ -144,6 +147,13 @@ Lockfile:
       "@types/bson" "*"
       "@types/node" "*"
   
+  "@types/mongoose@^5.11.97":
+    version "5.11.97"
+    resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.11.97.tgz#80b0357f3de6807eb597262f52e49c3e13ee14d8"
+    integrity sha512-cqwOVYT3qXyLiGw7ueU2kX9noE8DPGRY6z8eUxudhXY8NZ7DMKYAxyZkLSevGfhCX3dO/AoX5/SO9lAzfjon0Q==
+    dependencies:
+      mongoose "*"
+  
   "@types/node@*":
     version "15.12.3"
     resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.3.tgz#2817bf5f25bc82f56579018c53f7d41b1830b1af"
@@ -245,7 +255,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
     integrity sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA==
   
-  body-parser@1.19.0:
+  body-parser@1.19.0, body-parser@^1.19.0:
     version "1.19.0"
     resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
     integrity sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
@@ -493,6 +503,11 @@ Lockfile:
     integrity sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
     dependencies:
       is-obj "^2.0.0"
+  
+  dotenv@^10.0.0:
+    version "10.0.0"
+    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
+    integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
   
   duplexer3@^0.1.4:
     version "0.1.4"
@@ -961,7 +976,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
     integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
   
-  mongoose@^5.12.14:
+  mongoose@*, mongoose@^5.12.14:
     version "5.12.14"
     resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.12.14.tgz#610460f0725acf67b3eefcd92f0a48a08919d51b"
     integrity sha512-1lMRY8cfGYFWHqe5DLnVgNQDyD0fEbSoWIQe9Mllt/ZtayZ5XUFQt+o5VKrB44vsT5cLNzgwEFO0NvwTwqLluQ==

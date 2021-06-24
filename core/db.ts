@@ -2,7 +2,7 @@ import moongoose from 'mongoose'
 
 moongoose.Promise = Promise
 //mongodb://192.168.0.5:9999/foo 
-moongoose.connect(process.env.MONGODB_URI || 'mongodb://192.168.0.5:9999/twitter', {
+moongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/twitter', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true, 
