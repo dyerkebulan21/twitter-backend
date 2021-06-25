@@ -2,6 +2,7 @@ import express from 'express'
 import { validationResult } from 'express-validator'
 import { UserModel } from '../models/userModel'
 import { generateMD5 } from '../utils/generateHash'
+import {sendEmail} from './utils/sendMail'
 
 class UserController {
    async index(_: any, res: express.Response): Promise<void> {
@@ -38,6 +39,18 @@ class UserController {
           res.json({
             status: 'success',
             data: user
+          })
+          sendEmail({
+            from: "admin@twitter.com",
+            to: data.email,
+            subject: "Подтверждение почты React Twitter",
+            html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3000/user/activate/${data.confirmHash}">по этой ссылке</a>`
+          }, function(err: Error | null, info: SendMessageInfo){
+              if(err) {
+                console.log(err)
+              } else {
+                console.log(info)
+              }
           })
         }catch(err) {
           console.log(err)
