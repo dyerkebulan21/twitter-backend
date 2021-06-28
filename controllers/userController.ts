@@ -2,7 +2,7 @@ import express from 'express'
 import { validationResult } from 'express-validator'
 import { UserModel } from '../models/userModel'
 import { generateMD5 } from '../utils/generateHash'
-import {sendEmail} from './utils/sendMail'
+import {sendEmail} from '../utils/sendEmail'
 
 class UserController {
    async index(_: any, res: express.Response): Promise<void> {
@@ -41,16 +41,17 @@ class UserController {
             data: user
           })
           sendEmail({
-            from: "admin@twitter.com",
-            to: data.email,
+            emailFrom: "admin@twitter.com",
+            emailTo: data.email,
             subject: "Подтверждение почты React Twitter",
-            html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3000/user/activate/${data.confirmHash}">по этой ссылке</a>`
-          }, function(err: Error | null, info: SendMessageInfo){
-              if(err) {
-                console.log(err)
-              } else {
-                console.log(info)
-              }
+            html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3000/user/activate/${data.confirm_hash}">по этой ссылке</a>`
+          }, (err: Error | null) => {
+            if(err) {
+              res.json({
+                status: 'error',
+                message: JSON.stringify(err),
+              })
+            }
           })
         }catch(err) {
           console.log(err)
