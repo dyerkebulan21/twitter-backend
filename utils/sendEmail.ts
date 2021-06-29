@@ -19,6 +19,7 @@ export const sendEmail = (
       subject: subject,
       html: html,
     },
+    //@ts-ignore
     callback ||
       function (err: Error | null, info: SentMessageInfo) {
         if (err) {
