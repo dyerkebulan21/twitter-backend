@@ -1,13 +1,15 @@
 
-import './core/db'
+
 import dotenv from 'dotenv'
+dotenv.config()
+import './core/db'
 import express from 'express'
 import {UserCtrl} from './controllers/UserController'
 import { registerValidator } from './validators/register'
 
 
 const app = express()
-dotenv.config()
+
 app.use(express.json())
 
 app.get('/users', UserCtrl.index)
