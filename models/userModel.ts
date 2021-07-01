@@ -1,13 +1,13 @@
 import {model, Schema, Document} from 'mongoose'
 
 
-interface UserModelInterface {
+export interface UserModelInterface {
     email: string,
     fullname: string,
     username: string,
     password: string,
-    confirmHash: string,
-    confirmed: string,
+    confirmed_hash: string,
+    confirmed?: boolean,
     location?: string,
     about?: string,
     website?:string

@@ -3,6 +3,7 @@ import { validationResult } from 'express-validator'
 import { UserModel } from '../models/userModel'
 import { generateMD5 } from '../utils/generateHash'
 import {sendEmail} from '../utils/sendEmail'
+import {UserModelInterface} from '../models/userModel'
 
 class UserController {
    async index(_: any, res: express.Response): Promise<void> {
@@ -28,7 +29,7 @@ class UserController {
             res.status(400).json({errors: 'error', message: errors.array()})
             return 
           }
-          const data = {
+          const data:UserModelInterface = {
             username: req.body.username,
             fullname: req.body.fullname,
             password: req.body.password,
@@ -44,7 +45,7 @@ class UserController {
             emailFrom: "admin@twitter.com",
             emailTo: data.email,
             subject: "Подтверждение почты React Twitter",
-            html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3000/user/activate/${data.confirmed_hash}">по этой ссылке</a>`
+            html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:3000/user/verify/${data.confirmed_hash}">по этой ссылке</a>`
           }, (err: Error | null) => {
             if(err) {
               res.json({
@@ -63,6 +64,26 @@ class UserController {
         }   
     }
 
+    async verify(req: any, res: express.Response): Promise<void> {
+      const hash = req.query.hash
+      if(!hash) {
+        res.status(400).send()
+        return;
+      }
+      const users = await UserModel.find({confirmHash: {}}).exec()
+    try{
+      res.json({
+          status: 'success',
+          data: users
+      })
+    }catch(err) {
+      res.status(500).json({
+          status: 'error', 
+          message: JSON.stringify(err)
+      })
+    }
+
+  }
     
 }
 
