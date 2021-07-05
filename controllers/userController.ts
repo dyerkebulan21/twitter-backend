@@ -21,6 +21,26 @@ class UserController {
     }
   }
 
+  async show(req: any, res: express.Response): Promise<void> {
+    try {
+      const user_id = req.params.id;
+      if (!user_id) {
+        res.status(400);
+        return
+      };
+      const user = await UserModel.findById(user_id).exec();
+      res.json({
+        status: "success",
+        data: user,
+      });
+    } catch (err) {
+      res.json({
+        status: "error",
+        message: JSON.stringify(err),
+      });
+    }
+  }
+
   async create(req: express.Request, res: express.Response): Promise<void> {
     try {
       const errors = validationResult(req);
@@ -84,7 +104,7 @@ class UserController {
           status: "success",
         });
       } else {
-        res.status(404).send()
+        res.status(404).send();
       }
     } catch (err) {
       res.status(500).json({
