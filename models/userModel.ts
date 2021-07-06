@@ -32,11 +32,13 @@ const userSchema = new Schema({
     },
     password: {
         required: true,
-        type: String
+        type: String,
+        select: false
     },
     confirmed_hash: {
         required: true,
         type: String,
+        select: false
     },
     location: String,
     confirmed: {

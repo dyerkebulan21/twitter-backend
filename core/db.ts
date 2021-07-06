@@ -1,16 +1,16 @@
-import moongoose from 'mongoose'
+import mongoose from 'mongoose'
 
-moongoose.Promise = Promise
+mongoose.Promise = Promise
 //mongodb://192.168.0.5:9999/foo 
-moongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/twitter', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/twitter', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true, 
     useFindAndModify: false 
 })
 
-const db = moongoose.connection 
+const db = mongoose.connection 
 
 db.on('error', console.error.bind(console, 'connection error'))
 
-export {db, moongoose}
+export {db, mongoose}

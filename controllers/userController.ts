@@ -4,6 +4,7 @@ import { UserModel } from "../models/userModel";
 import { generateMD5 } from "../utils/generateHash";
 import { sendEmail } from "../utils/sendEmail";
 import { UserModelInterface } from "../models/userModel";
+import { isValidObjectId } from "../utils/isValidObjectId";
 
 class UserController {
   async index(_: any, res: express.Response): Promise<void> {
@@ -23,11 +24,16 @@ class UserController {
 
   async show(req: any, res: express.Response): Promise<void> {
     try {
+    
       const user_id = req.params.id;
-      if (!user_id) {
-        res.status(400);
+      if(!isValidObjectId(user_id)) {
+        res.status(404).send()
         return
-      };
+      }
+      if (!user_id) {
+        res.status(400).send();
+        return;
+      }
       const user = await UserModel.findById(user_id).exec();
       res.json({
         status: "success",
@@ -51,7 +57,7 @@ class UserController {
       const data: UserModelInterface = {
         username: req.body.username,
         fullname: req.body.fullname,
-        password: req.body.password,
+        password: generateMD5(req.body.password +  process.env.SECRET_KEY),
         email: req.body.email,
         confirmed_hash: generateMD5(
           process.env.SECRET_KEY || Math.random().toString()
