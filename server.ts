@@ -12,14 +12,15 @@ import { passport } from './core/passport'
 const app = express()
 
 app.use(express.json())
+app.use(passport.initialize())
 
 app.get('/users', UserCtrl.index)
-app.post('/users', registerValidator,UserCtrl.create)
+app.post('/auth/register', registerValidator,UserCtrl.create)
 app.get('/users/:id', UserCtrl.show)
 app.get('/users/verify', UserCtrl.verify)
 // app.patch('/user', UserCtrl.update)
 // app.delete('/user', UserCtrl.delete)
-app.post('/login', passport.authenticate('local'), function(req,res){
+app.post('/auth/login', passport.authenticate('local'), function(req,res){
     res.json(req.user)
 })
 
