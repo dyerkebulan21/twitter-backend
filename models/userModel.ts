@@ -11,12 +11,11 @@ export interface UserModelInterface {
   location?: string;
   about?: string;
   website?: string;
-
 }
 
 type UserModelDocumentInterface = UserModelInterface & Document;
 
-const userSchema = new Schema({
+const UserSchema = new Schema<UserModelInterface>({
   email: {
     unique: true,
     required: true,
@@ -50,7 +49,7 @@ const userSchema = new Schema({
   website: String,
 });
 
-userSchema.set("toJSON", {
+UserSchema.set("toJSON", {
   transform: function (_, obj) {
     delete obj.password;
     delete obj.confirmed_hash;
@@ -58,4 +57,4 @@ userSchema.set("toJSON", {
   },
 });
 
-export const UserModel = model<UserModelDocumentInterface>("User", userSchema);
+export const UserModel = model<UserModelDocumentInterface>("User", UserSchema);

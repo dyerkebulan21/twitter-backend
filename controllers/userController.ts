@@ -24,11 +24,10 @@ class UserController {
 
   async show(req: any, res: express.Response): Promise<void> {
     try {
-    
       const user_id = req.params.id;
-      if(!isValidObjectId(user_id)) {
-        res.status(404).send()
-        return
+      if (!isValidObjectId(user_id)) {
+        res.status(404).send();
+        return;
       }
       if (!user_id) {
         res.status(400).send();
@@ -57,7 +56,7 @@ class UserController {
       const data: UserModelInterface = {
         username: req.body.username,
         fullname: req.body.fullname,
-        password: generateMD5(req.body.password +  process.env.SECRET_KEY),
+        password: generateMD5(req.body.password + process.env.SECRET_KEY),
         email: req.body.email,
         confirmed_hash: generateMD5(
           process.env.SECRET_KEY || Math.random().toString()
