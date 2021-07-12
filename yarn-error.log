@@ -1,30 +1,30 @@
 Arguments: 
-  /Users/dyerkebulan21/.nvm/versions/node/v15.14.0/bin/node /Users/dyerkebulan21/.nvm/versions/node/v15.14.0/bin/yarn add @type/passport-local
+  /Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin/node /Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin/yarn add jwtwebtoken
 
 PATH: 
-  /opt/homebrew/bin:/Users/dyerkebulan21/.nvm/versions/node/v15.14.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/opt/homebrew/bin:/Users/dyerkebulan21/.nvm/versions/node/v15.14.0/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/dyerkebulan21/.yarn/bin:/Library/PostgreSQL/13/bin/:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/dyerkebulan21/.yarn/bin:/Library/PostgreSQL/13/bin/
+  /opt/homebrew/bin:/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/dyerkebulan21/.yarn/bin:/Library/PostgreSQL/13/bin/
 
 Yarn version: 
   1.22.10
 
 Node version: 
-  15.14.0
+  14.16.1
 
 Platform: 
   darwin arm64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@type%2fpassport-local: Not found
-      at Request.params.callback [as _callback] (/Users/dyerkebulan21/.nvm/versions/node/v15.14.0/lib/node_modules/yarn/lib/cli.js:66988:18)
-      at Request.self.callback (/Users/dyerkebulan21/.nvm/versions/node/v15.14.0/lib/node_modules/yarn/lib/cli.js:140662:22)
-      at Request.emit (node:events:369:20)
-      at Request.<anonymous> (/Users/dyerkebulan21/.nvm/versions/node/v15.14.0/lib/node_modules/yarn/lib/cli.js:141634:10)
-      at Request.emit (node:events:369:20)
-      at IncomingMessage.<anonymous> (/Users/dyerkebulan21/.nvm/versions/node/v15.14.0/lib/node_modules/yarn/lib/cli.js:141556:12)
-      at Object.onceWrapper (node:events:475:28)
-      at IncomingMessage.emit (node:events:381:22)
-      at endReadableNT (node:internal/streams/readable:1307:12)
-      at processTicksAndRejections (node:internal/process/task_queues:81:21)
+  Error: https://registry.yarnpkg.com/jwtwebtoken: Not found
+      at Request.params.callback [as _callback] (/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/lib/node_modules/yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/lib/node_modules/yarn/lib/cli.js:140662:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/lib/node_modules/yarn/lib/cli.js:141634:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (/Users/dyerkebulan21/.nvm/versions/node/v14.16.1/lib/node_modules/yarn/lib/cli.js:141556:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (internal/streams/readable.js:1327:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
 
 npm manifest: 
   {
@@ -40,7 +40,7 @@ npm manifest:
       "@types/nodemailer": "^6.4.2",
       "@types/nodemailer-smtp-transport": "^2.7.4",
       "@types/passport": "^1.0.6",
-      "@types/passport-local": "^1.0.33",
+      "@types/passport-local": "^1.0.34",
       "body-parser": "^1.19.0",
       "dotenv": "^10.0.0",
       "express": "^4.17.1",
@@ -218,10 +218,10 @@ Lockfile:
     dependencies:
       "@types/node" "*"
   
-  "@types/passport-local@^1.0.33":
-    version "1.0.33"
-    resolved "https://registry.yarnpkg.com/@types/passport-local/-/passport-local-1.0.33.tgz#d245b60c5b801cb3aeca1ffab557d5fe1534260d"
-    integrity sha512-+rn6ZIxje0jZ2+DAiWFI8vGG7ZFKB0hXx2cUdMmudSWsigSq6ES7Emso46r4HJk0qCgrZVfI8sJiM7HIYf4SbA==
+  "@types/passport-local@^1.0.34":
+    version "1.0.34"
+    resolved "https://registry.yarnpkg.com/@types/passport-local/-/passport-local-1.0.34.tgz#84d3b35b2fd4d36295039ded17fe5f3eaa62f4f6"
+    integrity sha512-PSc07UdYx+jhadySxxIYWuv6sAnY5e+gesn/5lkPKfBeGuIYn9OPR+AAEDq73VRUh6NBTpvE/iPE62rzZUslog==
     dependencies:
       "@types/express" "*"
       "@types/passport" "*"

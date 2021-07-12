@@ -2,6 +2,7 @@ import express from "express";
 import { validationResult } from "express-validator";
 import { UserModel } from "../models/userModel";
 import { generateMD5 } from "../utils/generateHash";
+import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail";
 import { UserModelInterface } from "../models/userModel";
 import { isValidObjectId } from "../utils/isValidObjectId";
@@ -111,6 +112,23 @@ class UserController {
       } else {
         res.status(404).send();
       }
+    } catch (err) {
+      res.status(500).json({
+        status: "error",
+        message: JSON.stringify(err),
+      });
+    }
+  }
+  async afterLogin(req: any, res: express.Response): Promise<void> {
+    const user = req.user ? req.user.toJSON() : undefined
+    try {
+      res.json({
+        status: "success",
+        data: {
+          user,
+          token: jwt.sign(req.user, process.env.SECRET_KEY || 'QWERTY123'),
+        },
+      });
     } catch (err) {
       res.status(500).json({
         status: "error",

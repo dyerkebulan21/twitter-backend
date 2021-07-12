@@ -50,9 +50,9 @@ const UserSchema = new Schema<UserModelInterface>({
 });
 
 UserSchema.set("toJSON", {
-  transform: function (_, obj) {
+  transform: function (_: any, obj: any) {
     delete obj.password;
-    delete obj.confirmed_hash;
+    delete obj.confirmHash;
     return obj;
   },
 });

@@ -3,7 +3,6 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel, UserModelInterface } from "../models/userModel";
 import { generateMD5 } from "../utils/generateHash";
 
-
 passport.use(
   //@ts-ignore
   new LocalStrategy(async (username, password, done): Promise<void> => {
@@ -34,7 +33,7 @@ passport.serializeUser((user: UserModelInterface, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  UserModel.findById(id, (err, user) => {
+  UserModel.findById(id, (err: any, user: any) => {
     done(err, user);
   });
 });
