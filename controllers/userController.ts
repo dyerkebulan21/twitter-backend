@@ -120,13 +120,15 @@ class UserController {
     }
   }
   async afterLogin(req: any, res: express.Response): Promise<void> {
-    const user = req.user ? req.user.toJSON() : undefined
+    const user = req.user ? req.user.toJSON() : undefined;
     try {
       res.json({
         status: "success",
         data: {
           user,
-          token: jwt.sign(req.user, process.env.SECRET_KEY || 'QWERTY123'),
+          token: jwt.sign(req.user, process.env.SECRET_KEY || "QWERTY123", {
+            expiresIn: "30d",
+          }),
         },
       });
     } catch (err) {
