@@ -138,6 +138,20 @@ class UserController {
       });
     }
   }
+  async getUserInfo(req: any, res: express.Response): Promise<void> {
+    const user = req.user ? req.user.toJSON() : undefined;
+    try {
+      res.json({
+        status: "success",
+        data: user,
+      });
+    } catch (err) {
+      res.status(500).json({
+        status: "error",
+        message: JSON.stringify(err),
+      });
+    }
+  }
 }
 
 export const UserCtrl = new UserController();
