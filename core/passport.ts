@@ -28,16 +28,6 @@ passport.use(
     }
   })
 );
-//@ts-ignore
-passport.serializeUser((user: UserModelInterface, done) => {
-  done(null, user?._id);
-});
-
-passport.deserializeUser((id, done) => {
-  UserModel.findById(id, (err: any, user: any) => {
-    done(err, user);
-  });
-});
 
 passport.use(
   new JWTstrategy(
@@ -58,5 +48,16 @@ passport.use(
     }
   )
 );
+
+//@ts-ignore
+passport.serializeUser((user: UserModelInterface, done) => {
+  done(null, user?._id);
+});
+
+passport.deserializeUser((id, done) => {
+  UserModel.findById(id, (err: any, user: any) => {
+    done(err, user);
+  });
+});
 
 export { passport };

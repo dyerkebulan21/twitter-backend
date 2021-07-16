@@ -1,22 +1,22 @@
 import express from "express";
+import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import { UserModel } from "../models/userModel";
 import { generateMD5 } from "../utils/generateHash";
-import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail";
 import { UserModelInterface } from "../models/userModel";
 import { isValidObjectId } from "../utils/isValidObjectId";
 
 class UserController {
   async index(_: any, res: express.Response): Promise<void> {
-    const users = await UserModel.find({}).exec();
     try {
+      const users = await UserModel.find({}).exec();
       res.json({
         status: "success",
         data: users,
       });
     } catch (err) {
-      res.json({
+      res.status(500).json({
         status: "error",
         message: JSON.stringify(err),
       });
@@ -30,17 +30,17 @@ class UserController {
         res.status(404).send();
         return;
       }
-      if (!user_id) {
+      const user = await UserModel.findById(user_id).exec();
+      if (!user) {
         res.status(400).send();
         return;
       }
-      const user = await UserModel.findById(user_id).exec();
       res.json({
         status: "success",
         data: user,
       });
     } catch (err) {
-      res.json({
+      res.status(500).json({
         status: "error",
         message: JSON.stringify(err),
       });
@@ -77,7 +77,7 @@ class UserController {
         },
         (err: Error | null) => {
           if (err) {
-            res.json({
+            res.status(500).json({
               status: "error",
               message: JSON.stringify(err),
             });
@@ -90,7 +90,10 @@ class UserController {
         }
       );
     } catch (err) {
-      console.log(err);
+      res.status(500).json({
+        status: "error",
+        message: err,
+      });
     }
   }
 
@@ -105,12 +108,23 @@ class UserController {
 
       if (user) {
         user.confirmed = true;
-        user.save();
+        await user.save();
         res.json({
           status: "success",
+          data: {
+            ...user.toJSON(),
+            token: jwt.sign(
+              { data: user.toJSON() },
+              process.env.SECRET_KEY || "123",
+              { expiresIn: "30days" }
+            ),
+          },
         });
       } else {
-        res.status(404).send();
+        res.status(404).json({
+          status: "error",
+          message: "Пользователь не найден",
+        });
       }
     } catch (err) {
       res.status(500).json({
@@ -120,14 +134,14 @@ class UserController {
     }
   }
   async afterLogin(req: any, res: express.Response): Promise<void> {
-    const user = req.user ? req.user.toJSON() : undefined;
     try {
+      const user = req.user ? req.user.toJSON() : undefined;
       res.json({
         status: "success",
         data: {
-          user,
+          ...user,
           token: jwt.sign(req.user, process.env.SECRET_KEY || "QWERTY123", {
-            expiresIn: "30d",
+            expiresIn: "30days",
           }),
         },
       });
@@ -139,8 +153,8 @@ class UserController {
     }
   }
   async getUserInfo(req: any, res: express.Response): Promise<void> {
-    const user = req.user ? req.user.toJSON() : undefined;
     try {
+      const user = req.user ? req.user.toJSON() : undefined;
       res.json({
         status: "success",
         data: user,
