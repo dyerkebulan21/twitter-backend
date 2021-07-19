@@ -1,13 +1,10 @@
 import express from "express";
 import { validationResult } from "express-validator";
-import { TweetModel } from "../models/tweetModel";
-import { generateMD5 } from "../utils/generateHash";
-import jwt from "jsonwebtoken";
-import { sendEmail } from "../utils/sendEmail";
+import { TweetModel, TweetModelInterface } from "../models/tweetModel";
 import { UserModelInterface } from "../models/userModel";
 import { isValidObjectId } from "../utils/isValidObjectId";
 
-class TweetController {
+class TweetsController {
   async index(_: any, res: express.Response): Promise<void> {
     const tweets = await TweetModel.find({}).exec();
     try {
@@ -47,9 +44,34 @@ class TweetController {
     }
   }
 
-  async create(req: express.Request, res: express.Response): Promise<void> {}
+  async create(req: express.Request, res: express.Response): Promise<void> {
+    try {
+      const user = req.user as UserModelInterface;
+      const errors = validationResult(req);
+      if (user) {
+        if (!errors.isEmpty()) {
+          res.status(400).json({ errors: "error", message: errors.array() });
+          return;
+        }
+        const data: TweetModelInterface = {
+          text: req.body.text,
+          user: user._id,
+        };
+        const tweet = await TweetModel.create();
+        res.json({
+          status: "success",
+          tweet: data,
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        status: "error",
+        message: err,
+      });
+    }
+  }
 
-  async getUserInfo(req: any, res: express.Response): Promise<void> {}
+  async delete(req: any, res: express.Response): Promise<void> {}
 }
 
-export const TweetCtrl = new TweetController();
+export const TweetsCtrl = new TweetsController();

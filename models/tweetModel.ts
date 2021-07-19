@@ -12,6 +12,7 @@ const TweetSchema = new Schema<TweetModelInterface>({
   text: {
     required: true,
     type: String,
+    maxLength: 280,
   },
   user: {
     required: true,
@@ -19,7 +20,6 @@ const TweetSchema = new Schema<TweetModelInterface>({
     ref: "User",
   },
 });
-
 
 export const TweetModel = model<TweetModelDocumentInterface>(
   "Tweet",
