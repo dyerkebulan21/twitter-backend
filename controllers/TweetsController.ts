@@ -48,7 +48,7 @@ class TweetsController {
     try {
       const user = req.user as UserModelInterface;
       const errors = validationResult(req);
-      if (user) {
+      if (user?._id) {
         if (!errors.isEmpty()) {
           res.status(400).json({ errors: "error", message: errors.array() });
           return;
