@@ -57,10 +57,10 @@ class TweetsController {
           text: req.body.text,
           user: user._id,
         };
-        const tweet = await TweetModel.create();
+        const tweet = await TweetModel.create(data);
         res.json({
           status: "success",
-          tweet: data,
+          data: tweet,
         });
       }
     } catch (err) {
