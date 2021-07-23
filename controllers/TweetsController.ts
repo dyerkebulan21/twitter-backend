@@ -53,7 +53,7 @@ class TweetsController {
           res.status(400).json({ errors: "error", message: errors.array() });
           return;
         }
-        const data: TweetModelInterface = {
+        const data: any = {
           text: req.body.text,
           user: user._id,
         };
@@ -83,8 +83,12 @@ class TweetsController {
         }
         const tweet = await TweetModel.findById(tweet_id);
         if (tweet) {
-          tweet.delete();
-          res.send();
+          if (String(tweet.user._id) === String(user._id)) {
+            tweet.delete();
+            res.send();
+          } else {
+            res.status(400).send();
+          }
         } else {
           res.status(400).send();
         }

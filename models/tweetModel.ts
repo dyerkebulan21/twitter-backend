@@ -1,9 +1,10 @@
 import { model, Schema, Document } from "mongoose";
+import { UserModelInterface } from "./userModel";
 
 export interface TweetModelInterface {
   _id?: string;
   text: string;
-  user: string;
+  user: UserModelInterface;
 }
 
 type TweetModelDocumentInterface = TweetModelInterface & Document;
