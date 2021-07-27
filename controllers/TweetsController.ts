@@ -1,12 +1,12 @@
 import express from "express";
 import { validationResult } from "express-validator";
-import { TweetModel, TweetModelInterface } from "../models/tweetModel";
+import { TweetModel } from "../models/tweetModel";
 import { UserModelInterface } from "../models/userModel";
 import { isValidObjectId } from "../utils/isValidObjectId";
 
 class TweetsController {
   async index(_: any, res: express.Response): Promise<void> {
-    const tweets = await TweetModel.find({}).exec();
+    const tweets = await TweetModel.find({}).populate("user").exec();
     try {
       res.json({
         status: "success",
@@ -27,7 +27,7 @@ class TweetsController {
         res.status(404).send();
         return;
       }
-      const tweet = await TweetModel.findById(tweet_id).exec();
+      const tweet = await TweetModel.findById(tweet_id).populate("user").exec();
       if (!tweet) {
         res.status(400).send();
         return;
@@ -115,7 +115,7 @@ class TweetsController {
           if (String(tweet.user._id) === String(user._id)) {
             const text = req.body.text;
             tweet.text = text;
-            tweet.save()
+            tweet.save();
             res.send();
           } else {
             res.status(400).send();
