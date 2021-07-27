@@ -27,7 +27,10 @@ class TweetsController {
         res.status(404).send();
         return;
       }
-      const tweet = await TweetModel.findById(tweet_id).populate("user").exec();
+      const tweet = await TweetModel.findById(tweet_id)
+        .populate("user")
+        .sort({ createdAt: "-1" })
+        .exec();
       if (!tweet) {
         res.status(400).send();
         return;
@@ -60,7 +63,7 @@ class TweetsController {
         const tweet = await TweetModel.create(data);
         res.json({
           status: "success",
-          data: tweet,
+          data: await tweet.populate("user").execPopulate(),
         });
       }
     } catch (err) {
